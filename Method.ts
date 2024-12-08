@@ -7,7 +7,8 @@ export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>):
   const data: Record<string, any> = {}
 
   sections.forEach((section) => {
-    const [key, ...valueParts] = section.split("\n")
+    const [first, ...valueParts] = section.split("\n")
+    const key = first.trim()
     const value = valueParts.join("\n").trim()
 
     const isZhcn = labels["language"] === "zh-CN"
