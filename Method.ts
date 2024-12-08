@@ -1,5 +1,5 @@
 import { EventStorage } from "./Model/Event.ts"
-import { Languages, OftenOptions } from "./Model/Record.ts"
+import { InstanceOptions, Languages, OftenOptions } from "./Model/Record.ts"
 
 export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>): EventStorage => {
   // 如果换行为 "\r\n", 则需要将 "\r\n" 替换为 "\n"
@@ -8,8 +8,9 @@ export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>):
   // deno-lint-ignore no-explicit-any
   const data: Record<string, any> = {}
 
-  const isZhcn = labels["language"] === "zh-CN"
-  const isEn = labels["language"] === "en"
+  const language = labels["language"]
+  const isZhcn = language === "zh-CN"
+  const isEn = language === "en"
 
   sections.forEach((section) => {
     const [first, ...valueParts] = section.split("\n")
@@ -40,7 +41,14 @@ export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>):
       (isZhcn && key === "该活动多久举办一次？")
       || (isEn && key === "How Often?")
     ) {
-      const option = OftenOptions[labels["language"]][value]
+      const option = OftenOptions[language][value]
+      data[labels[key]] = option || ""
+    }
+    else if (
+      (isZhcn && key === "房间类型")
+      || (isEn && key === "Instance Type")
+    ) {
+      const option = InstanceOptions[language][value]
       data[labels[key]] = option || ""
     }
     else if (

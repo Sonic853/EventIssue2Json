@@ -73,6 +73,29 @@ export const OftenOptions: Record<string, Record<string, string>> = {
   },
 }
 
+export const InstanceOptions: Record<string, Record<string, string>> = {
+  "zh-CN": {
+    "公开": "Public",
+    "公开群组": "Group Public",
+    "群组+": "Group+",
+    "群组成员": "Group",
+    "好友+": "Friends+",
+    "仅限好友": "Friends",
+    "邀请+": "Invite+",
+    "仅限邀请": "Invite",
+  },
+  "en": {
+    "Public": "Public",
+    "Group Public": "Group Public",
+    "Group+": "Group+",
+    "Group": "Group",
+    "Friends+": "Friends+",
+    "Friends": "Friends",
+    "Invite+": "Invite+",
+    "Invite": "Invite",
+  },
+}
+
 export const Languages: Record<string, string> = {
   "English": "en",
   "French": "fr",
