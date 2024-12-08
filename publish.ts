@@ -1,4 +1,4 @@
-import { walk } from "@std/fs"
+import { exists, walk } from "@std/fs"
 import { join } from "@std/path"
 import { EventStorage, Event, EventGroup } from "./Model/Event.ts"
 import { Body } from "./Model/Body.ts"
@@ -176,4 +176,8 @@ const data: Body = {
   events: events
 }
 const eventsData = JSON.stringify(data, null, 2)
-await Deno.writeTextFile(join(".", "pages", "events.json"), eventsData)
+const folder = join(".", "pages")
+if (!await exists(folder)) {
+  await Deno.mkdir(folder, { recursive: true })
+}
+await Deno.writeTextFile(join(folder, "events.json"), eventsData)
