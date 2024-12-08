@@ -2,6 +2,8 @@ import { EventStorage } from "./Model/Event.ts"
 import { Languages, OftenOptions } from "./Model/Record.ts"
 
 export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>): EventStorage => {
+  // 如果换行为 "\r\n", 则需要将 "\r\n" 替换为 "\n"
+  md = md.replace(/\r\n/g, "\n")
   const sections = md.split("\n### ").map((section) => section.trim())
   // deno-lint-ignore no-explicit-any
   const data: Record<string, any> = {}
