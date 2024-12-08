@@ -6,14 +6,14 @@ export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>):
   // deno-lint-ignore no-explicit-any
   const data: Record<string, any> = {}
 
+  const isZhcn = labels["language"] === "zh-CN"
+  const isEn = labels["language"] === "en"
+
   sections.forEach((section) => {
     const [first, ...valueParts] = section.split("\n")
-    const key = first.trim()
+    const key = first.startsWith("### ") ? first.replace("### ", "").trim() : first.trim()
     const value = valueParts.join("\n").trim()
-    console.log(key, value)
 
-    const isZhcn = labels["language"] === "zh-CN"
-    const isEn = labels["language"] === "en"
     if (
       (isZhcn && (key === "支持平台" || key === "标签"))
       || (isEn && (key === "Event Platform" || key === "Tags"))
@@ -38,8 +38,8 @@ export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>):
       (isZhcn && key === "该活动多久举办一次？")
       || (isEn && key === "How Often?")
     ) {
-      const options = OftenOptions[labels["language"]]
-      data[labels[key]] = options.find((option) => value.includes(option)) || ""
+      const option = OftenOptions[labels["language"]][value]
+      data[labels[key]] = option || ""
     }
     else if (
       (isZhcn && key === "活动语言")
@@ -77,7 +77,7 @@ export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>):
         data[labels[key]] = tags
       }
     }
-    else if (!labels[key]) {
+    else if (labels[key]) {
       if (value !== "None" && value !== "_No response_") {
         data[labels[key]] = value
       }

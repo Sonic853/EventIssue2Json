@@ -84,8 +84,6 @@ if (!issue.body) {
 
 const eventStorage: EventStorage = ParseMarkdownToJSON(issue.body, labels)
 
-console.log(JSON.stringify(eventStorage, null, 2))
-
 if (!eventStorage.id) {
   console.error("Missing event id")
   Deno.exit(1)

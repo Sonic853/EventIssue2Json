@@ -54,23 +54,23 @@ export const EnLabels: Record<string, string> = {
   "Other Tags": "tags_other",
 }
 
-export const OftenOptions: Record<string, string[]> = {
-  "zh-CN": [
-    "每周",
-    "每两周",
-    "每月",
-    "每季度",
-    "每年",
-    "每天",
-  ],
-  "en": [
-    "Every Week",
-    "Every Two Weeks",
-    "Every Month",
-    "Every Season",
-    "Every Year",
-    "Every Day",
-  ],
+export const OftenOptions: Record<string, Record<string, string>> = {
+  "zh-CN": {
+    "每周": "Every Week",
+    "每两周": "Every Two Weeks",
+    "每月": "Every Month",
+    "每季": "Every Season",
+    "每年": "Every Year",
+    "每天": "Every Day",
+  },
+  "en": {
+    "Every Week": "Every Week",
+    "Every Two Weeks": "Every Two Weeks",
+    "Every Month": "Every Month",
+    "Every Season": "Every Season",
+    "Every Year": "Every Year",
+    "Every Day": "Every Day",
+  },
 }
 
 export const Languages: Record<string, string> = {
