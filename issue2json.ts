@@ -44,7 +44,7 @@ for (const label of issue.labels) {
 }
 if (!haveApproveLabel) {
   console.error("Missing 'approve' label")
-  Deno.exit(0)
+  Deno.exit(1)
 }
 
 
@@ -83,6 +83,8 @@ if (!issue.body) {
 }
 
 const eventStorage: EventStorage = ParseMarkdownToJSON(issue.body, labels)
+
+console.log(JSON.stringify(eventStorage, null, 2))
 
 if (!eventStorage.id) {
   console.error("Missing event id")

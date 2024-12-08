@@ -20,6 +20,10 @@ export interface EventBase {
    */
   location: string
   /**
+   * 房间类型
+   */
+  instance_type: string
+  /**
    * 支持平台
    */
   platform: string[]
