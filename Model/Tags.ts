@@ -1,6 +1,3 @@
-export const Tags: Record<string, TagTranslation> = {
-
-}
-export interface TagTranslation {
-  [key: string]: string
+export interface TranslationJ {
+  [key: string]: Record<string, string>
 }

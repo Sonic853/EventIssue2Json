@@ -1,4 +1,26 @@
-export interface EventBase {
+export interface EventContent {
+  /**
+   * 活动名称
+   */
+  title: string
+  /**
+   * 活动描述
+   */
+  description: string
+  /**
+   * 活动要求
+   */
+  require: string
+  /**
+   * 参加方式
+   */
+  join: string
+  /**
+   * 备注
+   */
+  note: string
+}
+export interface EventBase extends EventContent {
   /**
    * 活动 ID
    */
@@ -36,25 +58,9 @@ export interface EventBase {
    */
   language: string
   /**
-   * 活动名称
+   * 多语言
    */
-  title: string
-  /**
-   * 活动描述
-   */
-  description: string
-  /**
-   * 活动要求
-   */
-  require: string
-  /**
-   * 参加方式
-   */
-  join: string
-  /**
-   * 备注
-   */
-  note: string
+  multilingual?: Record<string, EventContent>
 }
 export interface Event extends EventBase {
   /**
@@ -98,7 +104,7 @@ export interface EventStorage extends EventBase {
    */
   maximum_duration: string
   /**
-   * 标签（中文）
+   * 标签
    */
   tags_other: string[]
   /**
