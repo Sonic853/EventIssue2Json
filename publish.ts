@@ -13,6 +13,7 @@ const platforms: Record<string, number> = {}
 const tags: Record<string, number> = {}
 const i18nTags = Deno.readTextFileSync(join(".", "i18n", "tags.json"))
 const i18nJson: TranslationJ = i18nTags ? JSON.parse(i18nTags) : {}
+const addedI18n:TranslationJ = {}
 /**
  * 从今天开始最大的天数
  */
@@ -103,11 +104,14 @@ try {
           note: jsonData.note,
           group,
         }
+        const addedI18nKey = Object.keys(addedI18n)
         event.platform.forEach((platform) => {
           platforms[platform] = (platforms[platform] || 0) + 1
         })
-
         event.tags.forEach((tag) => {
+          if (!addedI18nKey.includes(tag)) {
+            addedI18n[tag] = i18nJson[tag]
+          }
           tags[tag] = (tags[tag] || 0) + 1
         })
         events.push(event)
@@ -138,7 +142,11 @@ try {
         platforms[platform] = (platforms[platform] || 0) + 1
       })
 
+      const addedI18nKey = Object.keys(addedI18n)
       event.tags.forEach((tag) => {
+        if (!addedI18nKey.includes(tag)) {
+          addedI18n[tag] = i18nJson[tag]
+        }
         tags[tag] = (tags[tag] || 0) + 1
       })
 
@@ -172,7 +180,7 @@ const data: Body = {
   imageCount: 0,
   platform: platforms,
   tags: tags,
-  i18n: i18nJson,
+  i18n: addedI18n,
   events: events
 }
 const eventsData = JSON.stringify(data, null, 2)
