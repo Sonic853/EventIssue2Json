@@ -3,7 +3,7 @@ import { join } from "@std/path"
 import { EventStorage, Event, EventGroup } from "./Model/Event.ts"
 import { Body } from "./Model/Body.ts"
 import { FormatWithTimezone, GetRegularEventDate } from "./Method.ts"
-import { TranslationJ } from "./Model/Tags.ts"
+import { TranslationJ } from "./Model/I18n.ts"
 // 使用 Deno 循环一遍 Events 文件夹下的所有 json 文件
 
 const eventsFolder = join(".", "Events")

@@ -1,7 +1,7 @@
 import { join } from "@std/path"
 import { EventStorage } from "./Model/Event.ts"
 import { InstanceOptions, Languages, OftenOptions } from "./Model/Record.ts"
-import { TranslationJ } from "./Model/Tags.ts"
+import { TranslationJ } from "./Model/I18n.ts"
 
 export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>): EventStorage => {
   // 如果换行为 "\r\n", 则需要将 "\r\n" 替换为 "\n"
@@ -35,16 +35,20 @@ export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>):
       )
       const uniqueStrings = [...new Set(dataStrings)]
       const translationTags: string[] = []
+      const i18nJsonKeys = Object.keys(i18nJson)
       uniqueStrings.forEach((string) => {
-        if (
-          i18nJson[string]
-          && i18nJson[string][language]
-        ) {
-          translationTags.push(i18nJson[string][language])
-        }
-        else {
-          translationTags.push(string)
-        }
+        i18nJsonKeys.forEach((key) => {
+          const item = i18nJson[key]
+          if (
+            item[language]
+            && item[language] === string
+          ) {
+            translationTags.push(key)
+          }
+          else {
+            translationTags.push(string)
+          }
+        })
       })
       data[labels[key]] = translationTags
     }

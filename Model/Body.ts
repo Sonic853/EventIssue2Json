@@ -1,5 +1,5 @@
 import { Event } from "./Event.ts"
-import { TranslationJ } from "./Tags.ts"
+import { TranslationJ } from "./I18n.ts"
 
 export interface Body {
   /**
