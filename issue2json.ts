@@ -44,7 +44,7 @@ for (const label of issue.labels) {
 }
 if (!haveApproveLabel) {
   console.error("Missing 'approve' label")
-  Deno.exit(1)
+  Deno.exit(0)
 }
 
 
@@ -54,7 +54,7 @@ const issueLanguageKey = Object.keys(TitleHeaders).find((key) => {
 
 if (!issueLanguageKey) {
   console.error("Missing issue language key")
-  Deno.exit(1)
+  Deno.exit(0)
 }
 
 let labels: Record<string, string>
@@ -74,19 +74,19 @@ switch (issueLanguage) {
     break
   default:
     console.error("Unsupported issue language")
-    Deno.exit(1)
+    Deno.exit(0)
 }
 
 if (!issue.body) {
   console.error("Missing issue body")
-  Deno.exit(1)
+  Deno.exit(0)
 }
 
 const eventStorage: EventStorage = ParseMarkdownToJSON(issue.body, labels)
 
 if (!eventStorage.id) {
   console.error("Missing event id")
-  Deno.exit(1)
+  Deno.exit(0)
 }
 
 // 将 eventStorage 写入到 作者名 / id.json 文件中
@@ -98,7 +98,7 @@ const id = SanitizeFolderName(eventStorage.id)
 
 if (!authorName) {
   console.error("Missing author name")
-  Deno.exit(1)
+  Deno.exit(0)
 }
 
 const folder = join(".", "Events", authorName)

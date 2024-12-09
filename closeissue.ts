@@ -32,7 +32,7 @@ const response = await fetch(url, {
 
 if (!response.ok) {
   console.error(`Failed to close issue: ${response.status} ${response.statusText}`)
-  Deno.exit(1)
+  Deno.exit(0)
 }
 
 console.log("Issue closed successfully")
