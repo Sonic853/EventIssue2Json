@@ -80,6 +80,10 @@ export interface EventGroup {
 }
 export interface EventStorage extends EventBase {
   /**
+   * 议题
+   */
+  issue: string
+  /**
    * VRChat 组名称
    */
   group_name: string

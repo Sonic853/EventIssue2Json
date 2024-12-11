@@ -57,7 +57,7 @@ if (!issueLanguageKey) {
   Deno.exit(0)
 }
 
-let labels: Record<string, string>
+let labels: Record<string, string> = {}
 
 const issueLanguage = TitleHeaders[issueLanguageKey]
 
@@ -88,6 +88,8 @@ if (!eventStorage.id) {
   console.error("Missing event id")
   Deno.exit(0)
 }
+
+eventStorage.issue = flags.issue
 
 // 将 eventStorage 写入到 作者名 / id.json 文件中
 

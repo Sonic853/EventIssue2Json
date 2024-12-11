@@ -119,6 +119,7 @@ export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>):
   })
 
   return {
+    issue: "",
     id: data["id"],
     author: data["author"],
     start: data["start"],

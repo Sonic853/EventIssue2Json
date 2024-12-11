@@ -1,10 +1,14 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@std/cli@*": "1.0.8",
     "jsr:@std/fs@^1.0.6": "1.0.6",
     "jsr:@std/path@^1.0.8": "1.0.8"
   },
   "jsr": {
+    "@std/cli@1.0.8": {
+      "integrity": "3762d8dc9a373715c08d871c38d45e637b25266f013a1d0bbe560bca409de94e"
+    },
     "@std/fs@1.0.6": {
       "integrity": "42b56e1e41b75583a21d5a37f6a6a27de9f510bcd36c0c85791d685ca0b85fa2",
       "dependencies": [
