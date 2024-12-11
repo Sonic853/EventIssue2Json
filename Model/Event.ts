@@ -84,6 +84,10 @@ export interface EventStorage extends EventBase {
    */
   issue: string
   /**
+   * 图片
+   */
+  image?: string
+  /**
    * VRChat 组名称
    */
   group_name: string
