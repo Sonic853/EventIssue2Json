@@ -1,6 +1,6 @@
 import { parseArgs } from "jsr:@std/cli/parse-args"
-import { exists } from "@std/fs"
-import { join } from "@std/path"
+import * as fs from "jsr:@std/fs"
+import * as path from "jsr:@std/path"
 import { Issue } from "./Model/Issue.ts"
 import { EventStorage } from "./Model/Event.ts"
 import { TitleHeaders, ZhcnLabels, EnLabels } from "./Model/Record.ts"
@@ -103,13 +103,13 @@ if (!authorName) {
   Deno.exit(0)
 }
 
-const folder = join(".", "Events", authorName)
-if (!await exists(folder)) {
+const folder = path.join(".", "Events", authorName)
+if (!await fs.exists(folder)) {
   await Deno.mkdir(folder, { recursive: true })
 }
 
-const path = join(folder, `${titleName}_${id}.json`)
+const filepath = path.join(folder, `${titleName}_${id}.json`)
 
-await Deno.writeTextFile(path, JSON.stringify(eventStorage, null, 2))
+await Deno.writeTextFile(filepath, JSON.stringify(eventStorage, null, 2))
 
 Deno.exit(0)

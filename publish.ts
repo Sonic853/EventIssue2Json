@@ -1,17 +1,17 @@
-import { exists, walk } from "@std/fs"
-import { join } from "@std/path"
+import * as fs from "jsr:@std/fs"
+import * as path from "jsr:@std/path"
 import { EventStorage, Event, EventGroup } from "./Model/Event.ts"
 import { Body } from "./Model/Body.ts"
 import { FormatWithTimezone, GetRegularEventDate } from "./Method.ts"
 import { TranslationJ } from "./Model/I18n.ts"
 // 使用 Deno 循环一遍 Events 文件夹下的所有 json 文件
 
-const eventsFolder = join(".", "Events")
+const eventsFolder = path.join(".", "Events")
 
 const events: Event[] = []
 const platforms: Record<string, number> = {}
 const tags: Record<string, number> = {}
-const i18nTags = Deno.readTextFileSync(join(".", "i18n", "tags.json"))
+const i18nTags = Deno.readTextFileSync(path.join(".", "i18n", "tags.json"))
 const i18nJson: TranslationJ = i18nTags ? JSON.parse(i18nTags) : {}
 const addedI18n:TranslationJ = {}
 /**
@@ -25,7 +25,7 @@ const maxday = new Date(today.getFullYear(), today.getMonth(), today.getDate() +
 
 try {
   // Walk through all files in the "Events" directory and its subdirectories
-  for await (const entry of walk(eventsFolder, { exts: [".json"], includeDirs: false })) {
+  for await (const entry of fs.walk(eventsFolder, { exts: [".json"], includeDirs: false })) {
     const fileContent = await Deno.readTextFile(entry.path)
     const jsonData: EventStorage = JSON.parse(fileContent)
 
@@ -184,8 +184,8 @@ const data: Body = {
   events: events
 }
 const eventsData = JSON.stringify(data, null, 2)
-const folder = join(".", "pages")
-if (!await exists(folder)) {
+const folder = path.join(".", "pages")
+if (!await fs.exists(folder)) {
   await Deno.mkdir(folder, { recursive: true })
 }
-await Deno.writeTextFile(join(folder, "events.json"), eventsData)
+await Deno.writeTextFile(path.join(folder, "events.json"), eventsData)

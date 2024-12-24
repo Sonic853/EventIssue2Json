@@ -1,4 +1,5 @@
-import { join } from "@std/path"
+
+import * as path from "jsr:@std/path"
 import { EventStorage } from "./Model/Event.ts"
 import { InstanceOptions, Languages, OftenOptions } from "./Model/Record.ts"
 import { TranslationJ } from "./Model/I18n.ts"
@@ -14,7 +15,7 @@ export const ParseMarkdownToJSON = (md: string, labels: Record<string, string>):
   const isZhcn = language === "zh-CN"
   const isEn = language === "en"
 
-  const i18nTags = Deno.readTextFileSync(join(".", "i18n", "tags.json"))
+  const i18nTags = Deno.readTextFileSync(path.join(".", "i18n", "tags.json"))
   const i18nJson: TranslationJ = i18nTags ? JSON.parse(i18nTags) : {}
 
   sections.forEach((section) => {
