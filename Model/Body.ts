@@ -22,4 +22,24 @@ export interface Body {
    * 活动
    */
   events: Event[]
+  /**
+   * 名称
+   */
+  name?: string
+  /**
+   * 信息
+   */
+  description?: string
+  /**
+   * 语言
+   */
+  language?: string
+  /**
+   * 链接/订阅地址
+   */
+  url?: string
+  /**
+   * 提交活动地址
+   */
+  submitUrl?: string
 }

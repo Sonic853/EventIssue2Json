@@ -13,7 +13,7 @@ const platforms: Record<string, number> = {}
 const tags: Record<string, number> = {}
 const i18nTags = Deno.readTextFileSync(path.join(".", "i18n", "tags.json"))
 const i18nJson: TranslationJ = i18nTags ? JSON.parse(i18nTags) : {}
-const addedI18n:TranslationJ = {}
+const addedI18n: TranslationJ = {}
 /**
  * 从今天开始最大的天数
  */
@@ -175,14 +175,24 @@ events.sort((a, b) => {
   return dateA.getTime() - dateB.getTime()
 })
 
-// 将 events 写入到 pages/events.json 文件中
-const data: Body = {
-  imageCount: 0,
-  platform: platforms,
-  tags: tags,
-  i18n: addedI18n,
-  events: events
+// 读取 info.json 文件
+const infoJsonPath = path.join(".", "info.json")
+let data: Body = JSON.parse("{}")
+if (await fs.exists(infoJsonPath)) {
+  try {
+    const infoJsonText = await Deno.readTextFile(infoJsonPath)
+    data = JSON.parse(infoJsonText)
+  } catch (error) {
+    console.error("Error reading info.json:", error)
+  }
 }
+
+// 将 events 写入到 pages/events.json 文件中
+data.imageCount = 0
+data.platform = platforms
+data.tags = tags
+data.i18n = addedI18n
+data.events = events
 const eventsData = JSON.stringify(data, null, 2)
 const folder = path.join(".", "pages")
 if (!await fs.exists(folder)) {
